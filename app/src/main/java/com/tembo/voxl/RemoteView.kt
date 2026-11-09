@@ -182,6 +182,7 @@ class RemoteView(context: Context, host: Host, private val onAuthFailed: () -> U
     override fun onSizeChanged(w: Int, h: Int, ow: Int, oh: Int) {
         super.onSizeChanged(w, h, ow, oh)
         layoutDesk()
+        followCursor() // a taller desktop above the same keyboard can hide the pointer
         // Debounced: dragging a split-screen divider resizes many times.
         main.removeCallbacks(resizeNow)
         if (resizeScale != null) main.postDelayed(resizeNow, 250)
@@ -212,9 +213,8 @@ class RemoteView(context: Context, host: Host, private val onAuthFailed: () -> U
         val scale = listOf(base, (base + native) / 2, native)[textSize.coerceIn(1, 3) - 1]
         val key = "${(width / density * scale).roundToInt()},${(height / density * scale).roundToInt()}"
         if (key == lastSz) return
-        lastSz = key
-        resized += display
-        session.send("sz,$key")
+        // Counted only once sent; while disconnected it is retried after the next hello.
+        if (session.send("sz,$key")) { lastSz = key; resized += display }
     }
 
     private fun placeCursor() {
