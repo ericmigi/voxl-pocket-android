@@ -1,4 +1,4 @@
-# voxl-pocket
+# voxl-pocket-android
 
 A native Android client for [voxl](https://github.com/tembo/voxl), the low-latency remote
 desktop server. Built for tablets and foldables, works on phones.
