@@ -60,6 +60,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.WindowCompat
@@ -110,7 +111,7 @@ private fun HostPicker(onConnect: (Host) -> Unit) {
     }
 
     Scaffold(topBar = {
-        TopAppBar(title = { Text("Voxl") }, actions = {
+        TopAppBar(title = { Text(stringResource(R.string.app_name)) }, actions = {
             TextButton(onClick = { dialog = Dialog.Edit(null) }) { Text("Add", fontSize = 16.sp) }
         })
     }) { pad ->
